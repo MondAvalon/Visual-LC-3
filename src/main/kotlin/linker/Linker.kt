@@ -6,21 +6,21 @@ import parser.RawInstruction
  * 记录标签与其地址之间的对应关系。
  */
 class Linker {
-    private val symbols = mutableMapOf<String, Int>()
+    private val symbols = mutableMapOf<String, Int>() // Key 为标签名，Value 为地址
 
     /**
      * 向符号表中加入一个标签。
      */
-    fun putLabel(label: String, value: Int) {
+    fun putLabel(label: String, addr: Int) {
         symbols.compute(label) { k, v ->
-            v?.let { throw IllegalStateException("标签已存在：$k") } ?: value
+            v?.let { throw IllegalStateException("标签已存在：$k") } ?: addr
         }
     }
 
     /**
      * 查询标签并获取其地址。
      */
-    fun getLabel(label: String): Int =
+    fun getLabelAddress(label: String): Int =
         symbols.getOrElse(label) { throw IllegalArgumentException("没有名为 $label 的标签") }
 }
 
@@ -40,7 +40,8 @@ fun createLinker(ins: Iterable<RawInstruction>): Linker {
 
                 i.labels.forEach {
                     // 对每个标签，将其加入 linker 所记录的符号表中
-                    TODO("请实现此方法的剩余部分")
+                    // TODO("请实现此方法的剩余部分")
+                    linker.putLabel(it, pc)
                 }
 
                 when (i.operator) {

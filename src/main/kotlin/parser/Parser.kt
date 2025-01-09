@@ -42,20 +42,20 @@ private val argTypes = mapOf(
     "BRNZP" to "L",
 
     // TODO: 请为以下操作码填写参数类型
-    "JMP" to "",
-    "JSR" to "",
-    "JSRR" to "",
-    "LD" to "",
-    "LDI" to "",
-    "LDR" to "",
-    "LEA" to "",
-    "NOT" to "",
+    "JMP" to "R",
+    "JSR" to "L",
+    "JSRR" to "R",
+    "LD" to "RL",
+    "LDI" to "RL",
+    "LDR" to "RRI",
+    "LEA" to "RL",
+    "NOT" to "RR",
     "RET" to "",
     "RTI" to "",
-    "ST" to "",
-    "STI" to "",
-    "STR" to "",
-    "TRAP" to "",
+    "ST" to "RL",
+    "STI" to "RL",
+    "STR" to "RRI",
+    "TRAP" to "I",
 )
 
 /**

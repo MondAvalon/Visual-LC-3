@@ -20,7 +20,8 @@ data class Token(
     fun asRegisterId(): Int {
         require(type == TokenType.REGISTER) // require 用于判定给定的条件，若不成立则抛出错误
 
-        TODO("请实现此方法的剩余部分")
+//        TODO("请实现此方法的剩余部分")
+        return content.drop(1).toInt()
     }
 
     /**
@@ -29,7 +30,9 @@ data class Token(
     fun asStringContent(): String {
         require(type == TokenType.STRING)
 
-        TODO("请实现此方法的剩余部分")
+//        TODO("请实现此方法的剩余部分")
+        return content.drop(1).dropLast(1)
+            .replace("\\n", "\n").replace("\\t", "\t").replace("\\b", "\b").replace("\\\"", "\"")
     }
 
     /**

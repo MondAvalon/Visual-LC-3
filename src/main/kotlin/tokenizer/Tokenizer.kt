@@ -15,7 +15,7 @@ class Tokenizer(private val source: CharSequence) {
         while (true) {
             // 若游标已在源代码末尾，则停止循环
             if (index == source.length) break
-            val pi = index;
+            val pi = index
 
             // 尝试读取每种类型的符号
             // 如果读取后游标向前移动，则成功读入，跳转至下一次循环
@@ -106,9 +106,11 @@ class Tokenizer(private val source: CharSequence) {
      * 读取一列连续的空白符或逗号，并将其丢弃。
      */
     private fun readWhitespaces() {
-        TODO("请实现此方法的剩余部分")
+//        TODO("请实现此方法的剩余部分")
         // 使用 readWhile 和 Char.isWhitespace 方法能简化此函数。
         // 注意，readWhile 会将字符加入缓冲区，由于我们不需要保存空白符，因此在读取完后需要将缓冲区清空。
+        readWhile { it.isWhitespace() || it == ',' }
+        buffer.clear()
     }
 
     /**
@@ -116,8 +118,13 @@ class Tokenizer(private val source: CharSequence) {
      */
     private fun readComment() {
         if (peekNext() == ';') {
-            TODO("请实现此方法的剩余部分")
+//            TODO("请实现此方法的剩余部分")
             // 使用 readUntil 能简化此函数。
+            // 注意，readUntil 会将字符加入缓冲区，由于我们不需要保存注释，因此在读取完后需要将缓冲区清空。
+            // 读取直到行尾
+            readUntil { it == '\n' }
+            index++ // 丢弃掉换行符
+            buffer.clear()
         }
     }
 
@@ -140,8 +147,9 @@ class Tokenizer(private val source: CharSequence) {
             TokenType.REGISTER to "R[0-7]".toRegex(RegexOption.IGNORE_CASE),
             TokenType.IMMEDIATE to "x[+-]?[0-9A-F]+|#[+-]?[0-9]+".toRegex(RegexOption.IGNORE_CASE),
             TokenType.NUMBER to "[+-]?[0-9]+".toRegex(RegexOption.IGNORE_CASE),
-            TokenType.OPERATOR to "ADD|AND|BRN?Z?P?|JMP|JSRR?|LD[IR]?|LEA|NOT|RET|RTI|ST[IR]?|TRAP|\\.(ORIG|END|FILL|BLKW|STRINGZ)|GETC|OUT|IN|PUTS|PUTSP|HALT"
-                .toRegex(RegexOption.IGNORE_CASE)
+            TokenType.OPERATOR to
+                    "ADD|AND|BRN?Z?P?|JMP|JSRR?|LD[IR]?|LEA|NOT|RET|RTI|ST[IR]?|TRAP|\\.(ORIG|END|FILL|BLKW|STRINGZ)|GETC|OUT|IN|PUTS|PUTSP|HALT"
+                        .toRegex(RegexOption.IGNORE_CASE)
         ).forEach { (t, r) ->
             if (s.matches(r)) return t
         }

@@ -17,10 +17,10 @@ class LinkerTest {
             .END
         """.trimIndent()
         createLinker(createRawInstructions(Tokenizer(src).resolve())).run {
-            assertEquals(0x201, getLabel("TEXT"))
-            assertEquals(0x204, getLabel("NUM"))
-            assertEquals(0x20b, getLabel("A"))
-            assertEquals(0x20c, getLabel("B"))
+            assertEquals(0x201, getLabelAddress("TEXT"))
+            assertEquals(0x204, getLabelAddress("NUM"))
+            assertEquals(0x20b, getLabelAddress("A"))
+            assertEquals(0x20c, getLabelAddress("B"))
         }
     }
 }
