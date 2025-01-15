@@ -26,3 +26,13 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = application.mainClass.get() // 设置 Main-Class 属性
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // 包含运行时依赖
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+}

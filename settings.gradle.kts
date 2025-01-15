@@ -1,2 +1,2 @@
-rootProject.name = "lc3as"
+rootProject.name = "lc3-assembly"
 
